@@ -1,3 +1,4 @@
+from typing import Callable
 from mutation.exceptions.mutation import MutationError as _MutationError
 from mutation.utils.lists import unique as _unique
 
@@ -46,7 +47,9 @@ class StateMachine(type):
 
         return state_mutations
 
-    def make_mutation(method_name: str, mutation: any, states: list):
+    def make_mutation(
+        method_name: str, mutation: any, states: list
+    ) -> Callable[[], None]:
         def method(self):
             allowed_mutations = _unique(states)
 

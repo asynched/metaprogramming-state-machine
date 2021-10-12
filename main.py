@@ -1,13 +1,15 @@
 from mutation import StateMachine
+from mutation.decorators import state_machine
+from mutation.interfaces import AbstractStateMachine
 
 
-class VideoState(metaclass=StateMachine):
+@state_machine
+class VideoState(AbstractStateMachine):
     PLAYING = 'playing'
     PAUSED = 'paused'
     STOPPED = 'stopped'
 
     INITIAL_STATE = STOPPED
-
     MUTATION_SCHEMA = [
         {
             'trigger': 'play',
@@ -41,7 +43,6 @@ if __name__ == '__main__':
     StateMachine.DEBUG = True
 
     video = VideoState()
-
     video.play()
     video.pause()
     video.stop()
